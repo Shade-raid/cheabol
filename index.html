@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>재벌 제국 / Chaebol Empire: 1948–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1a1a2e;
+  --secondary: #c41e3a;
+  --accent: #ffd700;
+  --bg-light: #f5f5dc;
+  --text: #2d2d2d;
+  --crisis: #8b0000;
+  --success: #2d5016;
+  --shadow: rgba(0,0,0,0.15);
+  --pattern-opacity: 0.03;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg-light);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Korean traditional pattern background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(196, 30, 58, var(--pattern-opacity)) 35px, rgba(196, 30, 58, var(--pattern-opacity)) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(26, 26, 46, var(--pattern-opacity)) 35px, rgba(26, 26, 46, var(--pattern-opacity)) 70px);
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, #16213e 100%);
+  color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 20px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '太極';
+  position: absolute;
+  right: -50px;
+  top: -30px;
+  font-size: 150px;
+  font-family: 'Nanum Myeongjo', serif;
+  opacity: 0.05;
+  font-weight: 800;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title-group h1 {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 0.25rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.title-group .subtitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.lang-toggle {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lang-toggle:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.stats-bar {
+  background: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 15px var(--shadow);
+  border-left: 5px solid var(--secondary);
+}
+
+.stats-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.stat-value.money {
+  color: var(--success);
+  font-size: 2.5rem;
+}
+
+.stat-value.year {
+  color: var(--primary);
+}
+
+.stat-value.era {
+  color: var(--secondary);
+  font-size: 1.5rem;
+}
+
+.crisis-banner {
+  background: linear-gradient(135deg, var(--crisis) 0%, #5a0000 100%);
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+  display: none;
+}
+
+.crisis-banner.active {
+  display: block;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.main-content {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.panel {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px var(--shadow);
+  border-top: 4px solid var(--secondary);
+}
+
+.panel h2 {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panel h2::before {
+  content: '▪';
+  color: var(--secondary);
+  font-size: 1.2rem;
+}
+
+.hustle-btn {
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--secondary) 0%, #a01828 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+  font-family: 'Noto Sans KR', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.hustle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.hustle-btn:hover::before {
+  left: 100%;
+}
+
+.hustle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+}
+
+.hustle-btn:active {
+  transform: translateY(0);
+}
+
+.producer-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.producer-card {
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.producer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--secondary);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.producer-card:hover::before {
+  transform: scaleY(1);
+}
+
+.producer-card.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+}
+
+.producer-card.locked::after {
+  content: '🔒';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+.producer-card:not(.locked):hover {
+  transform: translateX(8px);
+  border-color: var(--secondary);
+  box-shadow: -4px 4px 15px var(--shadow);
+}
+
+.producer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.producer-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.producer-owned {
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+.producer-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.producer-cost {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.producer-output {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.info-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.info-section strong {
+  color: var(--secondary);
+}
+
+.tooltip {
+  position: fixed;
+  background: rgba(26, 26, 46, 0.95);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .title-group h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Click feedback animation */
+@keyframes click-feedback {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.clicked {
+  animation: click-feedback 0.2s ease;
+}
+
+/* Number popup animation */
+@keyframes float-up {
+  0% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% { 
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.money-popup {
+  position: fixed;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--success);
+  pointer-events: none;
+  animation: float-up 1s ease-out forwards;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+/* Unlock animation */
+@keyframes unlock {
+  0% { 
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  60% {
+    transform: translateY(-5px) scale(1.05);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.newly-unlocked {
+  animation: unlock 0.6s ease-out;
+}
+
+/* Main Menu Styles */
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, #0f3460 50%, var(--secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.main-menu.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-content {
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  padding: 2rem;
+  position: relative;
+}
+
+.menu-title {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+  letter-spacing: -2px;
+  animation: title-glow 3s ease-in-out infinite;
+}
+
+.menu-subtitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.menu-tagline {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.menu-description {
+  background: rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-description p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.prototype-notice {
+  margin-top: 1rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.85rem !important;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes title-glow {
+  0%, 100% { 
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.5), 0 0 20px rgba(255,215,0,0.3);
+  }
+  50% { 
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.5), 0 0 40px rgba(255,215,0,0.5);
+  }
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.menu-btn {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Noto Sans KR', sans-serif;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.menu-btn:hover::before {
+  left: 100%;
+}
+
+.menu-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.menu-btn.primary {
+  background: linear-gradient(135deg, var(--secondary) 0%, #a01828 100%);
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4);
+}
+
+.menu-btn.primary:hover {
+  background: linear-gradient(135deg, #d42843 0%, var(--secondary) 100%);
+  box-shadow: 0 8px 30px rgba(196, 30, 58, 0.6);
+}
+
+.menu-btn-subtitle {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+.difficulty-selector {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.difficulty-title {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.difficulty-options {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.difficulty-btn {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.difficulty-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.difficulty-btn.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--primary);
+}
+
+.menu-decorative {
+  position: absolute;
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 200px;
+  opacity: 0.03;
+  font-weight: 800;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.menu-decorative.left {
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-decorative.right {
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.game-container {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.game-container.visible {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .menu-title {
+    font-size: 2.5rem;
+  }
+  
+  .menu-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .difficulty-options {
+    flex-direction: column;
+  }
+  
+  .menu-decorative {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Main Menu -->
+<div class="main-menu" id="mainMenu">
+  <div class="menu-decorative left">財</div>
+  <div class="menu-decorative right">閥</div>
+  <div class="menu-content">
+    <h1 class="menu-title" data-ko="재벌 제국" data-en="CHAEBOL EMPIRE">재벌 제국</h1>
+    <div class="menu-subtitle" data-ko="1948–2026" data-en="1948–2026">1948–2026</div>
+    <p class="menu-tagline" data-ko="폐허에서 시작하여 제국을 건설하라" data-en="Build an empire from the ashes">폐허에서 시작하여 제국을 건설하라</p>
+    
+    <div class="menu-description">
+      <p data-ko="전쟁의 잿더미에서 시작해 한국 최대 재벌로 성장하세요. 산업화, 경제 위기, 그리고 세계화의 물결 속에서 살아남으세요." 
+         data-en="Rise from post-war ruins to build Korea's greatest conglomerate. Survive industrialization, economic crises, and globalization.">
+        전쟁의 잿더미에서 시작해 한국 최대 재벌로 성장하세요. 산업화, 경제 위기, 그리고 세계화의 물결 속에서 살아남으세요.
+      </p>
+      <p class="prototype-notice" data-ko="⚠️ 프로토타입 버전 - 개발 중" data-en="⚠️ PROTOTYPE VERSION - IN DEVELOPMENT">
+        ⚠️ 프로토타입 버전 - 개발 중
+      </p>
+    </div>
+    
+    <div class="menu-buttons">
+      <button class="menu-btn primary" onclick="startGame()">
+        <span data-ko="게임 시작" data-en="START GAME">게임 시작</span>
+        <span class="menu-btn-subtitle" data-ko="새로운 제국을 건설하세요" data-en="Begin your dynasty">새로운 제국을 건설하세요</span>
+      </button>
+      
+      <button class="menu-btn" onclick="toggleDifficulty()">
+        <span data-ko="난이도 설정" data-en="DIFFICULTY">난이도 설정</span>
+        <span class="menu-btn-subtitle" id="difficultyLabel" data-ko="현재: 보통" data-en="Current: Normal">현재: 보통</span>
+      </button>
+      
+      <button class="menu-btn" onclick="toggleLanguageMenu()">
+        <span data-ko="🌐 English" data-en="🌐 한국어">🌐 English</span>
+        <span class="menu-btn-subtitle" data-ko="언어 변경" data-en="Change Language">언어 변경</span>
+      </button>
+    </div>
+    
+    <div class="difficulty-selector" id="difficultySelector" style="display: none;">
+      <div class="difficulty-title" data-ko="난이도 선택" data-en="SELECT DIFFICULTY">난이도 선택</div>
+      <div class="difficulty-options">
+        <button class="difficulty-btn" onclick="setDifficulty('easy')" data-ko="쉬움" data-en="Easy">쉬움</button>
+        <button class="difficulty-btn selected" onclick="setDifficulty('normal')" data-ko="보통" data-en="Normal">보통</button>
+        <button class="difficulty-btn" onclick="setDifficulty('hard')" data-ko="어려움" data-en="Hard">어려움</button>
+        <button class="difficulty-btn" onclick="setDifficulty('hell')" data-ko="지옥" data-en="Hell">지옥</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Game Container -->
+<div class="game-container" id="gameContainer">
+
+<div class="header">
+  <div class="header-content">
+    <div class="title-group">
+      <h1 data-ko="재벌 제국" data-en="Chaebol Empire">재벌 제국</h1>
+      <div class="subtitle" data-ko="1948–2026: 폐허에서 제국으로" data-en="1948–2026: FROM RUINS TO EMPIRE">1948–2026: 폐허에서 제국으로</div>
+    </div>
+    <button class="lang-toggle" onclick="toggleLanguage()">
+      <span data-ko="🌐 English" data-en="🌐 한국어">🌐 English</span>
+    </button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-content">
+    <div class="stat-item">
+      <div class="stat-label" data-ko="보유 자금" data-en="CAPITAL">보유 자금</div>
+      <div class="stat-value money">₩<span id="money">0</span></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label" data-ko="날짜" data-en="DATE">날짜</div>
+      <div class="stat-value year" id="year">1948 1월 1주차</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label" data-ko="시대" data-en="ERA">시대</div>
+      <div class="stat-value era" id="era">전후 생존기</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label" data-ko="초당 수익" data-en="₩ PER SECOND">초당 수익</div>
+      <div class="stat-value">₩<span id="tps">0</span>/s</div>
+    </div>
+  </div>
+</div>
+
+<div class="crisis-banner" id="crisisBanner">
+  ⚠ <span id="crisisText"></span>
+</div>
+
+<div class="main-content">
+  <div class="panel">
+    <h2 id="manualIncomeHeader">수동 수익</h2>
+    <button class="hustle-btn" onclick="clickMoney()" id="hustleBtn" 
+            data-ko="악착같이 벌기 (노점상)" 
+            data-en="Hustle Hard (Street Vendor)">
+      악착같이 벌기 (노점상)
+    </button>
+    
+    <div class="info-section">
+      <p><strong data-ko="클릭 보너스:" data-en="Click Bonus:">클릭 보너스:</strong> <span data-ko="초당 수익의 10% + 기본 1원" data-en="10% of TPS + ₩1 base">초당 수익의 10% + 기본 1원</span></p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.8;" data-ko="💡 팁: 위기는 기회다. 자산 가격이 폭락할 때 사들여라." data-en="💡 Tip: Crisis = opportunity. Buy when prices crash.">💡 팁: 위기는 기회다. 자산 가격이 폭락할 때 사들여라.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 id="businessDivisionsHeader">사업 부문</h2>
+    <div class="producer-grid" id="producers"></div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+</div>
+<!-- End Game Container -->
+
+<script>
+// Language system
+let currentLang = 'ko';
+const translations = {
+  eras: {
+    ko: [
+      { name: "전후 생존기", start: 1948, end: 1959 },
+      { name: "산업화 혁명", start: 1960, end: 1979 },
+      { name: "중화학 공업", start: 1980, end: 1996 },
+      { name: "세계화 시대", start: 1997, end: 2007 },
+      { name: "금융·기술", start: 2008, end: 2019 },
+      { name: "후기 자본주의", start: 2020, end: 2026 }
+    ],
+    en: [
+      { name: "Post-War Survival", start: 1948, end: 1959 },
+      { name: "Industrialization", start: 1960, end: 1979 },
+      { name: "Heavy Industry", start: 1980, end: 1996 },
+      { name: "Globalization", start: 1997, end: 2007 },
+      { name: "Tech & Finance", start: 2008, end: 2019 },
+      { name: "Late Capitalism", start: 2020, end: 2026 }
+    ]
+  },
+  producers: {
+    ko: [
+      { name:'섬유 공장', baseCost:15, cost:15, owned:0, baseProd:1, unlockYear:1948 },
+      { name:'제철소', baseCost:200, cost:200, owned:0, baseProd:8, unlockYear:1960 },
+      { name:'자동차 사업부', baseCost:1500, cost:1500, owned:0, baseProd:50, unlockYear:1980 },
+      { name:'전자 공장', baseCost:20000, cost:20000, owned:0, baseProd:400, unlockYear:1997 },
+      { name:'금융 계열사', baseCost:250000, cost:250000, owned:0, baseProd:3000, unlockYear:2008 },
+      { name:'플랫폼/AI', baseCost:1e7, cost:1e7, owned:0, baseProd:50000, unlockYear:2020 }
+    ],
+    en: [
+      { name:'Textile Mill', baseCost:15, cost:15, owned:0, baseProd:1, unlockYear:1948 },
+      { name:'Steel Works', baseCost:200, cost:200, owned:0, baseProd:8, unlockYear:1960 },
+      { name:'Auto Division', baseCost:1500, cost:1500, owned:0, baseProd:50, unlockYear:1980 },
+      { name:'Electronics', baseCost:20000, cost:20000, owned:0, baseProd:400, unlockYear:1997 },
+      { name:'Finance Arm', baseCost:250000, cost:250000, owned:0, baseProd:3000, unlockYear:2008 },
+      { name:'Platform/AI', baseCost:1e7, cost:1e7, owned:0, baseProd:50000, unlockYear:2020 }
+    ]
+  },
+  crises: {
+    ko: [
+      { year: 1997, duration: 4, severity: 0.5, message: "IMF 외환위기! 수익 절반, 자금 60% 증발!" },
+      { year: 2008, duration: 3, severity: 0.7, message: "세계 금융위기! 금융사 타격!" },
+      { year: 2020, duration: 2, severity: 0.75, message: "공급망 충격! 제조업 위축!" }
+    ],
+    en: [
+      { year: 1997, duration: 4, severity: 0.5, message: "IMF Crisis! Income halved, 60% capital loss!" },
+      { year: 2008, duration: 3, severity: 0.7, message: "Global Financial Crisis! Finance hit hard!" },
+      { year: 2020, duration: 2, severity: 0.75, message: "Supply Chain Shock! Manufacturing slowed!" }
+    ]
+  },
+  ratings: {
+    ko: {
+      titles: {
+        "Untouchable Dynasty": "불패의 재벌",
+        "Crisis Predator": "위기의 포식자",
+        "Balanced Conglomerate": "균형잡힌 대기업",
+        "Industrial Titan": "산업 거인",
+        "Fragile Empire": "취약한 제국"
+      },
+      labels: {
+        growth: "성장력",
+        efficiency: "효율성",
+        crisis: "위기 대응",
+        diversification: "다각화"
+      }
+    },
+    en: {
+      titles: {
+        "Untouchable Dynasty": "Untouchable Dynasty",
+        "Crisis Predator": "Crisis Predator",
+        "Balanced Conglomerate": "Balanced Conglomerate",
+        "Industrial Titan": "Industrial Titan",
+        "Fragile Empire": "Fragile Empire"
+      },
+      labels: {
+        growth: "Growth",
+        efficiency: "Efficiency",
+        crisis: "Crisis Handling",
+        diversification: "Diversification"
+      }
+    }
+  }
+};
+
+function toggleLanguage() {
+  currentLang = currentLang === 'ko' ? 'en' : 'ko';
+  
+  // Update all translatable elements
+  document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + currentLang);
+    if (text) {
+      el.textContent = text;
+    }
+  });
+  
+  // Manually update h2 headers
+  document.getElementById('manualIncomeHeader').textContent = currentLang === 'ko' ? '수동 수익' : 'Manual Income';
+  document.getElementById('businessDivisionsHeader').textContent = currentLang === 'ko' ? '사업 부문' : 'Business Divisions';
+  
+  // Update producers array with new language
+  const oldProducers = producers;
+  producers = JSON.parse(JSON.stringify(translations.producers[currentLang]));
+  
+  // Preserve ownership and costs
+  producers.forEach((p, i) => {
+    if (oldProducers[i]) {
+      p.owned = oldProducers[i].owned;
+      p.cost = oldProducers[i].cost;
+    }
+  });
+  
+  updateDifficultyLabel();
+  if (gameStarted) updateDisplay();
+}
+
+function toggleLanguageMenu() {
+  toggleLanguage();
+}
+
+// Menu and difficulty system
+let gameStarted = false;
+let difficulty = 'normal';
+const difficultySettings = {
+  easy: {
+    costMultiplier: 1.12,
+    productionMultiplier: 1.08,
+    timeMultiplier: 0.018,
+    crisisImpact: 0.8,
+    labels: { ko: '쉬움', en: 'Easy' }
+  },
+  normal: {
+    costMultiplier: 1.15,
+    productionMultiplier: 1.06,
+    timeMultiplier: 0.012,
+    crisisImpact: 1.0,
+    labels: { ko: '보통', en: 'Normal' }
+  },
+  hard: {
+    costMultiplier: 1.18,
+    productionMultiplier: 1.04,
+    timeMultiplier: 0.008,
+    crisisImpact: 1.3,
+    labels: { ko: '어려움', en: 'Hard' }
+  },
+  hell: {
+    costMultiplier: 1.22,
+    productionMultiplier: 1.03,
+    timeMultiplier: 0.005,
+    crisisImpact: 1.6,
+    labels: { ko: '지옥', en: 'Hell' }
+  }
+};
+
+function toggleDifficulty() {
+  const selector = document.getElementById('difficultySelector');
+  selector.style.display = selector.style.display === 'none' ? 'block' : 'none';
+}
+
+function setDifficulty(level) {
+  difficulty = level;
+  document.querySelectorAll('.difficulty-btn').forEach(btn => {
+    btn.classList.remove('selected');
+  });
+  event.target.classList.add('selected');
+  updateDifficultyLabel();
+}
+
+function updateDifficultyLabel() {
+  const label = document.getElementById('difficultyLabel');
+  const prefix = currentLang === 'ko' ? '현재: ' : 'Current: ';
+  label.textContent = prefix + difficultySettings[difficulty].labels[currentLang];
+  label.setAttribute('data-ko', '현재: ' + difficultySettings[difficulty].labels.ko);
+  label.setAttribute('data-en', 'Current: ' + difficultySettings[difficulty].labels.en);
+}
+
+function startGame() {
+  gameStarted = true;
+  document.getElementById('mainMenu').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('gameContainer').classList.add('visible');
+    startGameLoop();
+  }, 500);
+}
+
+// Game state
+let money = 0, tps = 0;
+let globalMultiplier = 1;
+let crisisMultiplier = 1;
+let boughtDuringCrisis = 0;
+let totalMoneyEarned = 0;
+let peakTPS = 0;
+let totalProducersOwned = 0;
+let crisisActive = false;
+let gameOver = false;
+
+let startYear = 1948, endYear = 2026, currentYear = startYear;
+let currentMonth = 1; // 1-12
+let currentWeek = 1; // 1-4
+let secondsPerWeek = 1; // 1 second per week = 4 seconds per month = 48 seconds per year
+let crisisEndYear = 0;
+
+const monthNames = {
+  ko: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+};
+
+function getFormattedDate() {
+  const monthName = monthNames[currentLang][currentMonth - 1];
+  const weekLabel = currentLang === 'ko' ? `${currentWeek}주차` : `Wk ${currentWeek}`;
+  return `${currentYear} ${monthName} ${weekLabel}`;
+}
+
+let producers = JSON.parse(JSON.stringify(translations.producers[currentLang]));
+
+function getEra() {
+  return translations.eras[currentLang].find(e => currentYear >= e.start && currentYear <= e.end);
+}
+
+function producerOutput(p) {
+  // Smoother exponential scaling based on difficulty
+  const settings = difficultySettings[difficulty];
+  return p.baseProd * p.owned * Math.pow(settings.productionMultiplier, p.owned) * globalMultiplier * crisisMultiplier;
+}
+
+function calculateTPS() {
+  let total = 0;
+  producers.forEach(p => total += producerOutput(p));
+  peakTPS = Math.max(peakTPS, total);
+  totalProducersOwned = producers.reduce((sum,p)=>sum+p.owned,0);
+  return total;
+}
+
+function clickMoney() {
+  let gain = 1 + tps * 0.1;
+  money += gain;
+  totalMoneyEarned += gain;
+  
+  // Visual feedback
+  document.getElementById('hustleBtn').classList.add('clicked');
+  setTimeout(() => document.getElementById('hustleBtn').classList.remove('clicked'), 200);
+  
+  // Floating number
+  showMoneyPopup(gain);
+  
+  updateMoneyDisplay();
+}
+
+function showMoneyPopup(amount) {
+  const popup = document.createElement('div');
+  popup.className = 'money-popup';
+  popup.textContent = '+₩' + formatNumber(amount);
+  
+  const btn = document.getElementById('hustleBtn');
+  const rect = btn.getBoundingClientRect();
+  popup.style.left = (rect.left + rect.width / 2 - 30) + 'px';
+  popup.style.top = (rect.top - 10) + 'px';
+  
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 1000);
+}
+
+function buy(i) {
+  let p = producers[i];
+  if (currentYear < p.unlockYear) return;
+  if (money >= p.cost) {
+    money -= p.cost;
+    p.owned++;
+    tps = calculateTPS();
+    const settings = difficultySettings[difficulty];
+    p.cost = Math.floor(p.baseCost * Math.pow(settings.costMultiplier, p.owned));
+    if (crisisActive) boughtDuringCrisis++;
+    updateDisplay();
+  }
+}
+
+function timeMultiplier() {
+  const settings = difficultySettings[difficulty];
+  return 1 + (currentYear - 1948) * settings.timeMultiplier;
+}
+
+function checkCrisis() {
+  const crises = translations.crises[currentLang];
+  crises.forEach(c => {
+    if (currentYear === c.year && !crisisActive) startCrisis(c);
+  });
+  if (crisisActive && currentYear > crisisEndYear) endCrisis();
+}
+
+function startCrisis(c) {
+  crisisActive = true;
+  const settings = difficultySettings[difficulty];
+  crisisMultiplier = c.severity * settings.crisisImpact;
+  crisisEndYear = c.year + c.duration - 1;
+  
+  if(c.year === 1997) {
+    const moneyLoss = difficulty === 'hell' ? 0.25 : difficulty === 'hard' ? 0.35 : 0.4;
+    money *= moneyLoss;
+  }
+  
+  const banner = document.getElementById('crisisBanner');
+  document.getElementById('crisisText').textContent = c.message;
+  banner.classList.add('active');
+}
+
+function endCrisis() {
+  crisisActive = false;
+  crisisMultiplier = 1;
+  document.getElementById('crisisBanner').classList.remove('active');
+}
+
+function showFinalRatings() {
+  function growthRating() {
+    if (money >= 1e90) return "S";
+    if (money >= 1e60) return "A";
+    if (money >= 1e40) return "B";
+    if (money >= 1e20) return "C";
+    return "D";
+  }
+
+  function efficiencyRating() {
+    let efficiency = peakTPS / (totalProducersOwned + 1);
+    if (efficiency > 1e6) return "S";
+    if (efficiency > 1e4) return "A";
+    if (efficiency > 1e2) return "B";
+    return "C";
+  }
+
+  function crisisRating() {
+    if (boughtDuringCrisis > 40 && money > totalMoneyEarned * 0.3) return "S";
+    if (money > totalMoneyEarned * 0.4) return "A";
+    if (money > totalMoneyEarned * 0.6) return "B";
+    return "D";
+  }
+
+  function diversificationRating() {
+    let active = producers.filter(p => p.owned > 0).length;
+    if (active >= producers.length) return "S";
+    if (active >= producers.length * 0.75) return "A";
+    if (active >= producers.length * 0.5) return "B";
+    return "C";
+  }
+
+  function finalTitle() {
+    const g = growthRating(), c = crisisRating(), d = diversificationRating();
+    if (g === "S" && c === "S") return "Untouchable Dynasty";
+    if (c === "S") return "Crisis Predator";
+    if (d === "S") return "Balanced Conglomerate";
+    if (g === "A" || g === "S") return "Industrial Titan";
+    return "Fragile Empire";
+  }
+
+  function finalScore() {
+    return Math.floor(Math.log10(money + 1) * 100);
+  }
+
+  const ratings = translations.ratings[currentLang];
+  const title = finalTitle();
+  
+  alert(`
+📊 ${currentLang === 'ko' ? '최종 평가 — 2026' : 'FINAL EVALUATION — 2026'}
+
+${ratings.labels.growth}: ${growthRating()}
+${ratings.labels.efficiency}: ${efficiencyRating()}
+${ratings.labels.crisis}: ${crisisRating()}
+${ratings.labels.diversification}: ${diversificationRating()}
+
+🏆 ${currentLang === 'ko' ? '칭호' : 'TITLE'}: ${ratings.titles[title]}
+
+${currentLang === 'ko' ? '최종 점수' : 'Final Score'}: ${finalScore()}
+  `);
+}
+
+function updateDisplay() {
+  // Update money and stats
+  document.getElementById('money').textContent = formatNumber(money);
+  document.getElementById('year').textContent = getFormattedDate();
+  document.getElementById('era').textContent = getEra().name;
+  document.getElementById('tps').textContent = formatNumber(tps);
+
+  // Update producers
+  let html = '';
+  producers.forEach((p, i) => {
+    const locked = currentYear < p.unlockYear;
+    const cardClass = locked ? 'producer-card locked' : 'producer-card';
+    const output = Math.floor(producerOutput(p));
+    
+    const costLabel = currentLang === 'ko' ? '비용' : 'Cost';
+    const outputLabel = currentLang === 'ko' ? '수익' : 'Output';
+    const lockedText = currentLang === 'ko' ? `${p.unlockYear}년 개방` : `Unlocks ${p.unlockYear}`;
+    
+    html += `
+      <div class="${cardClass}" onclick="buy(${i})">
+        <div class="producer-header">
+          <div class="producer-name">${p.name}</div>
+          <div class="producer-owned">${p.owned}</div>
+        </div>
+        <div class="producer-stats">
+          <span class="producer-cost">${costLabel}: ₩${formatNumber(p.cost)}</span>
+          ${!locked ? `<span class="producer-output">${outputLabel}: +${formatNumber(output)}/s</span>` : `<span style="color: #999;">${lockedText}</span>`}
+        </div>
+      </div>
+    `;
+  });
+  
+  document.getElementById('producers').innerHTML = html;
+}
+
+function formatNumber(num) {
+  if (num < 1000) return Math.floor(num).toLocaleString();
+  if (num < 1e6) return Math.floor(num).toLocaleString();
+  if (num < 1e9) return (num / 1e6).toFixed(2) + 'M';
+  if (num < 1e12) return (num / 1e9).toFixed(2) + 'B';
+  if (num < 1e15) return (num / 1e12).toFixed(2) + 'T';
+  return num.toExponential(2);
+}
+
+// Game loop control
+let yearInterval, passiveInterval;
+let lastDisplayUpdate = 0;
+
+function advanceTime() {
+  currentWeek++;
+  
+  // Advance month after 4 weeks
+  if (currentWeek > 4) {
+    currentWeek = 1;
+    currentMonth++;
+    
+    // Advance year after 12 months
+    if (currentMonth > 12) {
+      currentMonth = 1;
+      currentYear++;
+      
+      // Check for newly unlocked producers at year change
+      producers.forEach((p, i) => {
+        if (p.unlockYear === currentYear) {
+          setTimeout(() => {
+            const cards = document.querySelectorAll('.producer-card');
+            if (cards[i]) {
+              cards[i].classList.add('newly-unlocked');
+            }
+          }, 100);
+        }
+      });
+    }
+  }
+}
+
+function updateMoneyDisplay() {
+  // Only update money-related displays, not the entire producer grid
+  document.getElementById('money').textContent = formatNumber(money);
+  document.getElementById('tps').textContent = formatNumber(tps);
+}
+
+function startGameLoop() {
+  // Week progression (main game tick)
+  yearInterval = setInterval(() => {
+    if (!gameOver) {
+      advanceTime();
+      
+      tps = calculateTPS() * timeMultiplier();
+      const weeklyGain = tps / 48; // 48 weeks per year
+      money += weeklyGain;
+      totalMoneyEarned += weeklyGain;
+      
+      checkCrisis();
+      updateDisplay();
+      
+      if (currentYear >= endYear && currentMonth >= 12) {
+        gameOver = true;
+        setTimeout(showFinalRatings, 500);
+      }
+    }
+  }, secondsPerWeek * 1000);
+
+  // Passive TPS gain for smoothness (10 times per week)
+  passiveInterval = setInterval(() => {
+    if (!gameOver) {
+      const passiveGain = (tps / 48) * 0.1; // 10% of weekly gain per tick
+      money += passiveGain;
+      totalMoneyEarned += passiveGain;
+      updateMoneyDisplay(); // Only update money, not entire display
+    }
+  }, (secondsPerWeek * 1000) / 10);
+}
+
+// Initialize menu
+updateDifficultyLabel();
+</script>
+
+</body>
+</html>
